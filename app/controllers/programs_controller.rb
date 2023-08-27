@@ -62,7 +62,7 @@ class ProgramsController < ApplicationController
   # ..............Search program through name.....................
   def search_program_name
     if params[:name].present?
-      program = Program.where('name like ?', '%' + params[:name].strip + '%')
+      program = Program.where("name like '%#{params[:name].strip}%'")
       if program.empty?
         render json: { message: 'No data found...' }
       else
@@ -87,23 +87,6 @@ class ProgramsController < ApplicationController
     end
   end
 
-  # .................Delete Customer Program............................
-  # def delete_customer_purchase
-  #   if params[:program_id].present? && params[:purchase_id].present?
-  #     program = @current_user.programs.joins(:purchases).where("programs.id = #{ params[:program_id] } AND purchases.id = #{ params[:purchase_id] }")
-  #     if program.empty?
-  #       render json: {message: "Record not found"}
-  #     else
-  #       purchase = Purchase.find(params[:purchase_id])
-  #       purchase.destroy
-  #       render json: { message: "Purchase deleted successfully" }
-  #     end
-  #   else
-  #     render json: { message: "Record not found" }
-  #   end
-  # end
-
-  # .................Customer Functionalities....................
   # .....................Show active programs....................
   def show_active_program
   end
@@ -111,20 +94,6 @@ class ProgramsController < ApplicationController
   # .....................Show category wise programs.............
   def show_category_wise_programs
   end
-
-  # # ..................Search in purchased Programs.......................
-  # def search_in_customer_program
-  #   if params[:name].present?
-  #     program = Purchase.joins(:program).where("purchases.user_id=#{ @current_user.id } AND name LIKE '%#{ params[:name].strip }%'")
-  #     if program.empty?
-  #       render json: { error: 'Record not found' }
-  #     else
-  #       render json: program
-  #     end
-  #   else
-  #     render json: { message: "Please provide required field" }
-  #   end
-  # end
 
 	private
   def set_params

@@ -14,7 +14,7 @@ class PurchasesController < ApplicationController
 
   # ..................Purchase program.......................
   def create
-    purchase = @current_user.purchases.build(set_params)
+    purchase = @current_user.purchases.new(set_params)
     program = Program.find_by(status: 'active', id: purchase.program_id)
   
     if program

@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_request, only: [:create, :user_login]
   protect_from_forgery
 
-  # ..................Create instructor......................
+  # ..................Create User......................
   def create
     user = User.new(set_params)
     if user.save
