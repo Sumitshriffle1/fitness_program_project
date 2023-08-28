@@ -16,10 +16,10 @@ class PurchasesController < ApplicationController
   def create
     purchase = @current_user.purchases.new(set_params)
     program = Program.find_by(status: 'active', id: purchase.program_id)
-  
+
     if program
       purchase.status = 'started'
-  
+
       if purchase.save
         render json: purchase, status: :ok
       else
@@ -29,7 +29,7 @@ class PurchasesController < ApplicationController
       render json: { message: 'Cannot add inactive program' }
     end
   end
-  
+
   # ..................Update Program Status.......................
 	def update
 		if @current_user.type=='Instructor'
@@ -43,7 +43,7 @@ class PurchasesController < ApplicationController
 			render json: { message: "You do not have permission to update this purchase." }, status: :unauthorized
 		end
 	end
-	
+
 
   # ..................Show Particular Purchased Program .......................
 	def show
@@ -61,7 +61,7 @@ class PurchasesController < ApplicationController
 
 	private
   def set_params
-	  params.permit(:program_id)
+	  params.require(:purchase).permit(:program_id,:customer_name,:mobile)
 	end
 
   def find_id

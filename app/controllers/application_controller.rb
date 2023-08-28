@@ -16,13 +16,13 @@ class ApplicationController < ActionController::Base
     rescue ActiveRecord::RecordNotFound
       render json: "No record found.."
     end
-  end  
+  end
 
   # ..............Check user.....................
 	def current_user
 		@current_user
 	end
-  
+
   def render_404
     render json: { error: "Invalid URL" }, status: :not_found
   end

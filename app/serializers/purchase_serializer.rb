@@ -1,4 +1,6 @@
 class PurchaseSerializer < ActiveModel::Serializer
-  attributes :id, :status
-  has_many :program
+  attributes :id, :customer_name,:program,:mobile, :status
+  def program
+    object.program.name
+  end
 end

@@ -32,6 +32,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_160230) do
   end
 
   create_table "purchases", force: :cascade do |t|
+    t.string "customer_name"
+    t.integer "mobile"
     t.string "status"
     t.integer "user_id", null: false
     t.integer "program_id", null: false

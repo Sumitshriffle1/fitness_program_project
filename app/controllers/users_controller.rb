@@ -18,17 +18,17 @@ class UsersController < ApplicationController
       token= jwt_encode(user_id: user.id)
       render json: { message: "Logged In Successfully..", token: token }
     else
-      render json: { error: "Please Check your Email And Password....." }     
+      render json: { error: "Please Check your Email And Password....." }
     end
   end
-  
+
   # ..................Update user......................
   def update
     user = User.find(@current_user.id)
     if user.update(update_params)
       render json: { message: 'Updated successfully......', data: user }
     else
-      render json: { errors: user.errors.full_messages }      
+      render json: { errors: user.errors.full_messages }
     end
   end
 
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     render json: @current_user
   end
 
-  private 
+  private
   def set_params
     params.permit(:name,:email,:password_digest,:blood_group,:dob,:mobile,:type)
   end
