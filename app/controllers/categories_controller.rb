@@ -2,17 +2,17 @@ class CategoriesController < ApplicationController
   before_action :find_id, except: [:index, :create]
   protect_from_forgery
 
-  # ..................Show all categories................... 
+  # ..................Show all categories...................
   def index
-    category = Category.all 
+    category = Category.all
     if category.present?
       render json: category
     else
-      render json: { message: "There are no categories available.." }      
+      render json: { message: "There are no categories available.." }
     end
   end
 
-  # ..................Create categories................... 
+  # ..................Create categories...................
   def create
     if @current_user.type=="Instructor"
       category = @current_user.categories.new(set_params)
@@ -25,8 +25,8 @@ class CategoriesController < ApplicationController
       render json: { message: 'Only instructors can create categories' }, status: :unauthorized
     end
   end
-  
-  # ..................Update categories................... 
+
+  # ..................Update categories...................
   def update
     if @current_user.type=="Instructor"
       if @category.update(set_params)
@@ -39,7 +39,7 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # .................Destroy categories................... 
+  # .................Destroy categories...................
   def destroy
     if @current_user.type=="Instructor"
       if @category.destroy
@@ -51,13 +51,13 @@ class CategoriesController < ApplicationController
       render json: { message: 'Only instructors can delete categories' }, status: :unauthorized
     end
   end
-  
+
   # ..................Show category.........................
   def show
     render json: @category
   end
 
-  private 
+  private
   def set_params
     params.permit(:category_name)
   end
@@ -65,7 +65,7 @@ class CategoriesController < ApplicationController
   def find_id
     @category = Category.find_by_id(params[:id])
     unless @category
-      render json: "Id not found.." 
-    end   
+      render json: "Id not found.."
+    end
   end
 end

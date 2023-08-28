@@ -1,6 +1,5 @@
 class ProgramsController < ApplicationController
   before_action :find_id, only: [ :show, :update, :destroy ]
-  before_action :active_program, only: [ :show_active_program, :show_category_wise_programs ]
   protect_from_forgery
 
   # ...................Show programs....................
@@ -26,7 +25,7 @@ class ProgramsController < ApplicationController
       render json: { message: "You do not have permission to create a program." }, status: :unauthorized
     end
   end
-  
+
   # ..............Show particular program................
   def show
 		render json: @program
@@ -44,10 +43,10 @@ class ProgramsController < ApplicationController
       render json: { message: "You do not have permission to update this program." }, status: :unauthorized
     end
   end
-  
+
 
   # .....................Destroy program.....................
-  def destroy  
+  def destroy
     if @current_user.type=="Instructor"
       if @program.destroy
         render json: { message: 'Deleted successfully' }
@@ -58,7 +57,7 @@ class ProgramsController < ApplicationController
       render json: { message: 'You do not have permission to delete this program' }, status: :unauthorized
     end
   end
-  
+
   # ..............Search program through name.....................
   def search_program_name
     if params[:name].present?
@@ -89,10 +88,12 @@ class ProgramsController < ApplicationController
 
   # .....................Show active programs....................
   def show_active_program
-  end
-
-  # .....................Show category wise programs.............
-  def show_category_wise_programs
+    program = Program.where(status: 'active')
+    unless program.empty?
+      render json: program
+    else
+      render json: { message: 'No data found...' }
+    end
   end
 
 	private
@@ -103,16 +104,7 @@ class ProgramsController < ApplicationController
   def find_id
     @program = Program.find_by_id(params[:id])
     unless @program
-      render json: "Id not found.." 
-    end   
-  end
-
-  def active_program
-    program = Program.where(status: 'active')
-    unless program.empty?
-      render json: program
-    else
-      render json: { message: 'No data found...' }
+      render json: "Id not found.."
     end
   end
 end
