@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
 	include JsonWebToken
 
-  # ................Authentication request............
 	before_action :authenticate_request
 
   # ...................Authenticate User..................

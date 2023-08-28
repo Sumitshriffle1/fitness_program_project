@@ -26,7 +26,7 @@ class PurchasesController < ApplicationController
         render json: { error: purchase.errors.full_messages }
       end
     else
-      render json: { message: 'Cannot add inactive program' }
+      render json: { message: 'Id not found' }
     end
   end
 
@@ -61,7 +61,7 @@ class PurchasesController < ApplicationController
 
 	private
   def set_params
-	  params.require(:purchase).permit(:program_id,:customer_name,:mobile)
+	  params.permit(:program_id,:customer_name,:mobile)
 	end
 
   def find_id

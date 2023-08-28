@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_24_160230) do
     t.string "email"
     t.string "blood_group"
     t.datetime "dob"
-    t.string "mobile"
+    t.integer "mobile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "type"

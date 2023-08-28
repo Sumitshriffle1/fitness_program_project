@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :email
       t.string :blood_group
       t.datetime :dob
-      t.string :mobile
+      t.integer :mobile
 
       t.timestamps
     end
